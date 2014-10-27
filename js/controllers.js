@@ -21,12 +21,26 @@ palette.controller('paletteCtrl', function($scope, $http) {
 			"color": "black"
 		}
 	];
+
 	$http.get('json/grid.json').success(function(data) {
 		$scope.gridColors = data;
 	});
 
 	$scope.reset = function(){
-		$scope.user = angular.copy($scope.gridColors);
+		angular.forEach($scope.gridColors, function(cell) {
+			cell.color = cell.color == "rgb(255, 255, 255)" ? "rgb(255,255,255)" : "rgb(255, 255, 255)";
+		});
+	};
+	$scope.save = function(){
+		$http.post('json', $scope.gridColors).then(function(data) {
+			console.log(data.config.data);
+		});
+		// JSON.stringify($scope.gridColors);
+	};
+	$scope.load = function(){
+		$http.get('json/grid.json').then(function(data) {
+			$scope.gridColors = data.data;
+		});
 	};
 });
 palette.directive("drag", function(){
@@ -43,8 +57,9 @@ palette.directive("drop", function(){
 		link: function(scope, elem){
 			elem.droppable({
 				drop:function(event, ui){
-					// console.log($(this).css("backgroundColor"));
-					$(this).css("backgroundColor", mixer(ui.draggable.css("backgroundColor"), event.target.attributes.datacolor.value));
+					var newColor = mixer(ui.draggable.css("backgroundColor"), event.target.attributes.datacolor.value);
+					event.target.attributes.datacolor.value = newColor;
+					$(this).css("backgroundColor", newColor);
 				}
 			});
 		}

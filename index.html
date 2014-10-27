@@ -10,7 +10,11 @@
 	<script src="js/controllers.js"></script>
 </head>
 <body ng-controller="paletteCtrl">
-
+	<menu>
+		<button ng-click="reset()">Reset</button>
+		<button ng-click="save()">Save</button>
+		<button ng-click="load()">Load</button>
+	</menu>
 	<ul class="draggable-list">
 		<li ng-repeat="color in colors">
 			<div class="draggable" drag ng-style="{background:color.color}"></div>
@@ -18,7 +22,10 @@
 		</li>
 	</ul>
 	<ul class="grid">
-		<li class="drop" drop ng-repeat="cell in gridColors" ng-attr-data-color="{{cell.color}}">
+		<li class="drop" drop 
+			ng-repeat="cell in gridColors"
+			ng-attr-data-color="{{cell.color}}"
+			ng-style="{background:cell.color}">
 		</li>
 	</ul>
 
