@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="palette">
+<head>
+	<meta charset="UTF-8">
+	<title>palette</title>
+	<link rel="stylesheet" href="css/styles.css">
+	<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.js"></script>
+	<script src="js/controllers.js"></script>
+</head>
+<body ng-controller="paletteCtrl">
+
+	<ul class="draggable-list">
+		<li ng-repeat="color in colors">
+			<div class="draggable" drag ng-style="{background:color.color}"></div>
+			{{color.name}}
+		</li>
+	</ul>
+	<ul class="grid">
+		<li class="drop" drop ng-repeat="cell in gridColors" ng-attr-data-color="{{cell.color}}">
+		</li>
+	</ul>
+
+</body>
+</html>
