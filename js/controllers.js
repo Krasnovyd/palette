@@ -32,10 +32,9 @@ palette.controller('paletteCtrl', function($scope, $http) {
 		});
 	};
 	$scope.save = function(){
-		$http.post('json', $scope.gridColors).then(function(data) {
+		$http.post('json/saved.json', $scope.gridColors).then(function(data) {
 			console.log(data.config.data);
 		});
-		// JSON.stringify($scope.gridColors);
 	};
 	$scope.load = function(){
 		$http.get('json/grid.json').then(function(data) {
